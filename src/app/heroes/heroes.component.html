@@ -1,13 +1,20 @@
 <h2>Public Repositories</h2>
 <div>
-  <div style="width:20%; height: 100%; overflow-y: scroll; display: inline-block; float:left; ">
-    <ul class="heroes" style="height: 400px; display: block">
-      <li *ngFor="let hero of heroes"
-          (click)="onSelect(hero)"
-          [class.selected]="hero === selectedHero">
-          {{hero.name}}
-      </li>
-    </ul>
+  <div style="width:20%; height: 50%; display: inline-block; float:left;">
+    <div
+      style="width:100%; height: 50%; display: inline-block; float:left;"
+      infiniteScroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="300"
+      (scrolled)="onScroll()">
+      <ul class="heroes">
+        <li *ngFor="let hero of heroes"
+            (click)="onSelect(hero)"
+            [class.selected]="hero === selectedHero">
+            {{hero.name}}
+        </li>
+      </ul>
+    </div>
   </div>
   <div style="width:50%; display: inline-block; float:left;">
     <app-hero-detail [hero]="selectedHero"></app-hero-detail>

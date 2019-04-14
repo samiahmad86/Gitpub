@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
     FormsModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -32,7 +34,7 @@ export class AppModule {
       const http = httpLink.create({uri: 'https://api.github.com/graphql'});
       const auth = setContext((_, { headers }) => {
         return {
-          headers: {Authorization: `Bearer 9a4eb4a78e80c19d920ee6d0a957ddbbfd6a3fd7`}
+          headers: {Authorization: `Bearer a2ff9e6ed08d3e65c743ff9184ef6c5c9c1e0351`}
         };
     });
       apollo.create({

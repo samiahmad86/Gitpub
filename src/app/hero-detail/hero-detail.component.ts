@@ -3,11 +3,6 @@ import {Repository, RepositoryContributor} from '../hero';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import {isNullOrUndefined, isUndefined} from "util";
-import {forEach} from "@angular/router/src/utils/collection";
-import {noUndefined} from "@angular/compiler/src/util";
-import  {of} from "rxjs/index";
-import {distinct} from "rxjs/internal/operators";
-import {map} from "rxjs/internal/operators";
 
 
 @Component({
@@ -30,8 +25,6 @@ export class HeroDetailComponent implements OnInit {
     }
 
   }
-
-
   constructor(private apollo: Apollo) { }
 
   fetchAllBranches() {
@@ -48,21 +41,21 @@ export class HeroDetailComponent implements OnInit {
           }
         }
       }`;
-      this.apollo
-      .watchQuery<any>({
-        query: getBranches,
-        variables: {
-          ownerName: this.owner,
-          name: this.name
-        }
-      })
-        .valueChanges
-        .subscribe((result) => {
-        this.allbranch = result.data.repository.refs.edges.map( (list) => {
-          return list.node.name;
-        });
-        this.fetchRepository();
+    this.apollo
+    .watchQuery<any>({
+      query: getBranches,
+      variables: {
+        ownerName: this.owner,
+        name: this.name
+      }
+    })
+      .valueChanges
+      .subscribe((result) => {
+      this.allbranch = result.data.repository.refs.edges.map( (list) => {
+        return list.node.name;
       });
+      this.fetchRepository();
+    });
   }
 
 
@@ -72,7 +65,7 @@ export class HeroDetailComponent implements OnInit {
               repository(owner: $ownerName, name:$name) {
                 object(expression: $branch) {
                   ... on Commit {
-                    history{
+                    history(first: 100){
                       nodes {
                         author {
                           name
@@ -100,13 +93,6 @@ export class HeroDetailComponent implements OnInit {
           })
           .valueChanges
           .subscribe((result) => {
-            // (result.data.repository.object.history.nodes.map((list) => {
-            //   tempNames.push(list.author.name);
-            // }));
-            // this.repositoryContributor.push(...tempNames.filter((item, pos) => {
-            //    return tempNames.indexOf(item) === pos;
-            // }));
-            // tempNames = [];
             tempNames = (result.data.repository.object.history.nodes.map((list) => {
               return list.author.name;
             }));
@@ -114,10 +100,6 @@ export class HeroDetailComponent implements OnInit {
             this.repositoryContributor = this.repositoryContributor.filter((item, pos) => {
                return this.repositoryContributor.indexOf(item) === pos;
             });
-            // this.repositoryContributor.filter((v,i) => this.repositoryContributor.indexOf(v) === i);
-            // this.repositoryContributor.push(...tempNames.filter((item, pos) => {
-            //    return tempNames.indexOf(item) === pos;
-            // }));
             tempNames = [];
           });
       }
