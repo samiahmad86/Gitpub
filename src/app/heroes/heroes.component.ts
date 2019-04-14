@@ -78,7 +78,9 @@ export class HeroesComponent implements OnInit {
       this.heroes = result.data.search.edges.map( (edge) => {
           return {
             name: edge.node.name,
-            owner: edge.node.owner.login
+            owner: edge.node.owner.login,
+            forkCount: edge.node.forkCount,
+            starCount: edge.node.stargazers.totalCount
           };
         } );
       });
@@ -104,7 +106,9 @@ export class HeroesComponent implements OnInit {
           const temp = result.data.search.edges.map((edge) => {
             return {
               name: edge.node.name,
-              owner: edge.node.owner.login
+              owner: edge.node.owner.login,
+              forkCount: edge.node.forkCount,
+              starCount: edge.node.stargazers.totalCount
             };
           });
           this.heroes = this.heroes.concat(temp);

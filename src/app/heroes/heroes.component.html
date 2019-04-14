@@ -1,22 +1,40 @@
-<h2>Public Repositories</h2>
-<div>
-  <div style="width:20%; height: 50%; display: inline-block; float:left;">
-    <div
-      style="width:100%; height: 50%; display: inline-block; float:left;"
-      infiniteScroll
-      [infiniteScrollDistance]="1"
-      [infiniteScrollThrottle]="300"
-      (scrolled)="onScroll()">
-      <ul class="heroes">
-        <li *ngFor="let hero of heroes"
-            (click)="onSelect(hero)"
-            [class.selected]="hero === selectedHero">
-            {{hero.name}}
-        </li>
-      </ul>
+<div class="container-fluid" style="border:1px solid #cecece;">
+  <div class="row">
+    <div class="col-lg-4 border border-primary" >
+      <h4 class="well" align="center">Public Repositories</h4>
+        <div
+          style="height: 500px; overflow-y: auto"
+          infiniteScroll
+          [infiniteScrollDistance]="1"
+          [infiniteScrollThrottle]="200"
+           [scrollWindow]="false"
+          (scrolled)="onScroll()">
+          <ul class="list-group">
+            <li class="list-group-item"
+                *ngFor="let hero of heroes"
+                (click)="onSelect(hero)"
+                [class.selected]="hero === selectedHero">
+              <div align="left" style=" display: inline-block;">
+                 <h4>{{hero.name}}</h4>
+              </div>
+              <div align="right">
+                <img src="/assets/images/code-fork-512.png"
+                   style="width:10px;height:10px;"
+                   alt="Forks">: {{hero.forkCount  | number:0}}
+              &nbsp;
+               <img src="/assets/images/star.png"
+                   style="width:50px;height:25px;"
+                   alt="Stars">
+              {{hero.starCount  | number:0}}
+              </div>
+
+            </li>
+          </ul>
+        </div>
     </div>
-  </div>
-  <div style="width:50%; display: inline-block; float:left;">
-    <app-hero-detail [hero]="selectedHero"></app-hero-detail>
+    <div class="col-lg-8 border border-primary" style="max-height: 380px;">
+      <h4 class="well" align="center"> Contributors</h4>
+      <app-hero-detail [hero]="selectedHero"></app-hero-detail>
+    </div>
   </div>
 </div>

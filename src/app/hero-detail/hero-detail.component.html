@@ -1,10 +1,27 @@
-<div *ngIf="repositoryContributor">
-  <h2>{{name | uppercase}}  : Contributors </h2>
-  <div style="overflow-y: scroll; display: inline-block;">
-    <ul class="heroes" style="height: 380px;">
+<div style="margin: 13px;"
+  *ngIf="repositoryContributor">
+  <div class="row well">
+    <div class="col-lg-9 border">
+       <h3>
+         <span class="label label-info"> {{owner}} / {{name}}</span>
+       </h3>
+    </div>
+    <div align="bottom" class="col-lg-3 form-group" >
+      <form [formGroup]="branchForm">
+       <select class="form-control" formControlName="branchControl" (change)="onChange($event.target.value)">
+         <option [value]="branch" *ngFor="let branch of branches">
+           {{branch}}</option>
+       </select>
+      </form>
+    </div>
+  </div>
+
+  <div style="max-height: 380px; overflow-y: auto">
+    <ul>
     <li *ngFor="let hero of repositoryContributor">
         {{hero}}
     </li>
     </ul>
   </div>
 </div>
+  <div  align="center" id="loader_div"  style="display: none; text-align: center;" class="loader"></div>

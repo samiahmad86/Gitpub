@@ -3,13 +3,14 @@ import { NgModule } from '@angular/core';
 import { setContext } from 'apollo-link-context';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AppBootstrapModule } from './app-bootstrap.module';
 
 
 @NgModule({
@@ -20,11 +21,12 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    AppBootstrapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
