@@ -40,7 +40,7 @@ export class AppModule {
       const http = httpLink.create({uri: 'https://api.github.com/graphql'});
       const auth = setContext((_, { headers }) => {
         return {
-          headers: {Authorization: `Bearer a2ff9e6ed08d3e65c743ff9184ef6c5c9c1e0351`}
+          headers: {Authorization: `Bearer fdeaaa619ca5d6ae00d680f7ba34f2e7a2e0d660`}
         };
     });
       apollo.create({
