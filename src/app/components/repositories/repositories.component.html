@@ -5,27 +5,27 @@
         <div
           style="height: 500px; overflow-y: auto"
           infiniteScroll
-          [infiniteScrollDistance]="1"
-          [infiniteScrollThrottle]="200"
+          [infiniteScrollDistance]="2"
+          [infiniteScrollThrottle]="50"
            [scrollWindow]="false"
           (scrolled)="onScroll()">
           <ul class="list-group">
             <li class="list-group-item"
-                *ngFor="let hero of heroes"
-                (click)="onSelect(hero)"
-                [class.selected]="hero === selectedHero">
+                *ngFor="let repository of repositories"
+                (click)="onSelect(repository)"
+                [class.selected]="repository === selectedRepository">
               <div align="left" style=" display: inline-block;">
-                 <h4>{{hero.name}}</h4>
+                 <h4>{{repository.name}}</h4>
               </div>
               <div align="right">
                 <img src="/assets/images/code-fork-512.png"
                    style="width:10px;height:10px;"
-                   alt="Forks">: {{hero.forkCount  | number:0}}
+                   alt="Forks">: {{repository.forkCount  | number:0}}
               &nbsp;
                <img src="/assets/images/star.png"
                    style="width:50px;height:25px;"
                    alt="Stars">
-              {{hero.starCount  | number:0}}
+              {{repository.starCount  | number:0}}
               </div>
 
             </li>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-lg-8 border border-primary" style="max-height: 380px;">
       <h4 class="well" align="center"> Contributors</h4>
-      <app-hero-detail [hero]="selectedHero"></app-hero-detail>
+      <app-repository-detail [repository]="selectedRepository"></app-repository-detail>
     </div>
   </div>
 </div>

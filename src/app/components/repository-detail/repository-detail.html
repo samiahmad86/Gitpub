@@ -1,5 +1,5 @@
 <div>
-  <div style="margin: 13px;"
+  <div style="margin: 15px;"
     *ngIf="repositoryContributor">
     <div class="row well">
       <div class="col-lg-9 border">
@@ -23,8 +23,8 @@
     <div style="max-height: 380px; overflow-y: auto">
       <ul>
       <li style="color: firebrick;"
-        *ngFor="let hero of repositoryContributor">
-          {{hero}}
+        *ngFor="let repository of repositoryContributor">
+          {{repository}}
       </li>
       </ul>
     </div>
