@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Repository, RepositoryContributor} from '../../models/repository';
 import {Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
-import {isNullOrUndefined, isUndefined} from "util";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {GithubService} from "../../services/github.service";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {GithubService} from '../../services/github.service';
+import { Store, select } from '@ngrx/store';
 
 
 @Component({
@@ -14,25 +12,32 @@ import {GithubService} from "../../services/github.service";
 })
 export class RepositoryDetailComponent implements OnInit {
   branchForm: FormGroup;
-  branches = ['USA', 'Canada', 'Uk']
+  branches = ['master']
   repositoryContributor: string[];
   private tempRepositoryContributor = [];
   private name = 'esn_pytorch';
   private owner = 'samiahmad86';
   private allbranch;
-  @Input()
-  set repository(repository: Repository) {
-    if (!isNullOrUndefined(repository)) {
-      this.name = repository.name;
-      this.owner = repository.owner;
-      this.allbranch = [];
-      this.tempRepositoryContributor = [];
-      this.repositoryContributor = [];
-      this.fetchAllBranches();
-    }
+
+  // @Input()
+  // set repository(repository: Repository) {
+  //
+  //   if (!isNullOrUndefined(repository)) {
+  //     this.name = repository.name;
+  //     this.owner = repository.owner;
+  //     this.allbranch = [];
+  //     this.tempRepositoryContributor = [];
+  //     this.repositoryContributor = [];
+  //     this.fetchAllBranches();
+  //
+  //   }
+  //
+  // }
+
+  constructor(private apollo: Apollo, private fb: FormBuilder, private githubService: GithubService,
+              private store: Store<{ count: number }>) {
 
   }
-  constructor(private apollo: Apollo, private fb: FormBuilder, private githubService: GithubService) { }
 
   fetchAllBranches() {
     this.githubService.getAllBranches(this.name, this.owner)
@@ -76,6 +81,17 @@ export class RepositoryDetailComponent implements OnInit {
     this.branchForm = this.fb.group({
    branchControl: ['master']
     });
+    const repository = this.store.pipe(select('repository'));
+    repository.subscribe( (result) => {
+      if (result.repository !== null) {
+        this.name = result.repository.name;
+        this.owner = result.repository.owner;
+        this.allbranch = [];
+        this.tempRepositoryContributor = [];
+        this.repositoryContributor = [];
+        this.fetchAllBranches();
+      }
+     });
     }
 
     onChange(newValue) {

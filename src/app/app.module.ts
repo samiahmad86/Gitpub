@@ -12,6 +12,8 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppBootstrapModule } from './components/bootstrap/app-bootstrap.module';
 import {GithubService} from './services/github.service';
+import { StoreModule } from '@ngrx/store';
+import { repositoryReducer } from './store/reducers/repository.reducers';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import {GithubService} from './services/github.service';
     ApolloModule,
     HttpLinkModule,
     InfiniteScrollModule,
-    AppBootstrapModule
+    AppBootstrapModule,
+    StoreModule.forRoot({ repository: repositoryReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

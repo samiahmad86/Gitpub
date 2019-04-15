@@ -1,10 +1,10 @@
-export class Repository {
+export interface Repository {
   owner: string;
   name: string;
   forkCount: number;
   starCount: number;
 }
 
-export class RepositoryContributor {
+export interface RepositoryContributor {
   contributors: string;
 }

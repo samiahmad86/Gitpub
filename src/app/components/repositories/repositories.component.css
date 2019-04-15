@@ -1,6 +1,6 @@
 /* HeroesComponent's private CSS styles */
 .selected {
-  background-color: #CFD8DC !important;
+  background-color: cadetblue !important;
   color: white;
 }
 .heroes {
@@ -18,32 +18,17 @@
   height: 1.6em;
   border-radius: 4px;
 }
-.heroes li.selected:hover {
-  background-color: blue !important;
+ li.selected:hover {
+  background-color: #CFD8DC !important;
   color: white;
 }
-.heroes li:hover {
-  color: #607D8B;
-  background-color: #DDD;
+ li:hover {
+  color: white;
+  background-color: #CFD8DC;
   left: .1em;
 }
-.heroes .text {
+.text {
   position: relative;
   top: 0px;
   left: 5px;
 }
-.heroes .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
-}
-

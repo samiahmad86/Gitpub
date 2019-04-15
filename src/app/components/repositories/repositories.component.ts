@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Repository} from '../../models/repository';
 import {Apollo} from 'apollo-angular';
 import {GithubService} from '../../services/github.service';
+import {Observable} from 'rxjs/index';
+import { Store, select } from '@ngrx/store';
+import {GetRepository, SetRepository} from '../../store/actions/repository.action';
 
 
 @Component({
@@ -16,7 +19,9 @@ export class RepositoriesComponent implements OnInit {
   private nextCursor = '';
   private hasNextPage = true;
 
-  constructor(private apollo: Apollo, private  githubService: GithubService) { }
+  constructor(private apollo: Apollo, private  githubService: GithubService, private store: Store<{ count: number }>) {
+
+  }
 
   ngOnInit() {
    this.githubService.getFirstQuery()
@@ -35,6 +40,7 @@ export class RepositoriesComponent implements OnInit {
   }
 
   onSelect(repository: Repository): void {
+    this.store.dispatch(new SetRepository(repository));
     this.selectedRepository = repository;
   }
 
