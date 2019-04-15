@@ -2,27 +2,35 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { setContext } from 'apollo-link-context';
 import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
-import { FormsModule } from '@angular/forms';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { RepositoriesComponent } from './components/repositories/repositories.component';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { RepositoryDetailComponent } from './components/repository-detail/repository-detail';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AppBootstrapModule } from './components/bootstrap/app-bootstrap.module';
+import {GithubService} from './services/github.service';
+import { StoreModule } from '@ngrx/store';
+import { repositoryReducer } from './store/reducers/repository.reducers';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeroesComponent,
-    HeroDetailComponent
+    RepositoriesComponent,
+    RepositoryDetailComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    InfiniteScrollModule,
+    AppBootstrapModule,
+    StoreModule.forRoot({ repository: repositoryReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -32,7 +40,7 @@ export class AppModule {
       const http = httpLink.create({uri: 'https://api.github.com/graphql'});
       const auth = setContext((_, { headers }) => {
         return {
-          headers: {Authorization: `Bearer 9a4eb4a78e80c19d920ee6d0a957ddbbfd6a3fd7`}
+          headers: {Authorization: `Bearer a2ff9e6ed08d3e65c743ff9184ef6c5c9c1e0351`}
         };
     });
       apollo.create({

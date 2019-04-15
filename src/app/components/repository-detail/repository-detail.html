@@ -1,0 +1,33 @@
+<div>
+  <div style="margin: 15px;"
+    *ngIf="repositoryContributor">
+    <div class="row well">
+      <div class="col-lg-9 border">
+         <h3>
+           <span class="label label-info"> {{owner}} / {{name}}</span>
+         </h3>
+      </div>
+      <div align="bottom" class="col-lg-3 form-group" >
+        <form [formGroup]="branchForm">
+         <select class="form-control" formControlName="branchControl" (change)="onChange($event.target.value)">
+           <option [value]="branch" *ngFor="let branch of branches">
+             {{branch}}</option>
+         </select>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+       <div  align="center" id="loader_div"  style="display: none; text-align: center; position: absolute"
+          class="loader text-center col-lg-12"></div>
+    </div>
+    <div style="max-height: 380px; overflow-y: auto">
+      <ul>
+      <li style="color: firebrick;"
+        *ngFor="let repository of repositoryContributor">
+          {{repository}}
+      </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
