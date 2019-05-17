@@ -2,6 +2,11 @@
 
 Fetch all public repositories from Github using GraphQL Github API.
 
+![](desc.gif)
+
+
+
+
 Tech Stack:
 Angular 7, Ngrx, Apollo Client for making requests.
 
