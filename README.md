@@ -2,6 +2,8 @@
 
 Fetch all public repositories from Github using GraphQL Github API.
 
+
+Demo : (gif)
 ![](desc.gif)
 
 
