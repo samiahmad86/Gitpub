@@ -1,12 +1,12 @@
 <div class="container-fluid" style="border:1px solid #cecece;">
   <div class="row">
     <div class="col-lg-4 border border-primary" >
-      <h4 class="well" align="center">Public Repositories</h4>
+      <h5 class="well" align="center">Public Repositories</h5>
         <div
           style="height: 500px; overflow-y: auto; overflow-x: hidden;"
           infiniteScroll
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="50"
+          [infiniteScrollDistance]="1"
+          [infiniteScrollThrottle]="1"
            [scrollWindow]="false"
           (scrolled)="onScroll()">
           <ul class="list-group" >
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-lg-8 border border-primary" style="max-height: 380px;">
-      <h4 class="well" align="center"> Contributors</h4>
+      <h5 class="well" align="center"> Contributors</h5>
       <app-repository-detail></app-repository-detail>
     </div>
   </div>

@@ -14,25 +14,9 @@ export class RepositoryDetailComponent implements OnInit {
   branchForm: FormGroup;
   branches = ['master']
   repositoryContributor: string[];
-  private tempRepositoryContributor = [];
   private name = 'esn_pytorch';
   private owner = 'samiahmad86';
   private allbranch;
-
-  // @Input()
-  // set repository(repository: Repository) {
-  //
-  //   if (!isNullOrUndefined(repository)) {
-  //     this.name = repository.name;
-  //     this.owner = repository.owner;
-  //     this.allbranch = [];
-  //     this.tempRepositoryContributor = [];
-  //     this.repositoryContributor = [];
-  //     this.fetchAllBranches();
-  //
-  //   }
-  //
-  // }
 
   constructor(private apollo: Apollo, private fb: FormBuilder, private githubService: GithubService,
               private store: Store<{ count: number }>) {
@@ -63,15 +47,14 @@ export class RepositoryDetailComponent implements OnInit {
         hasNextPage = result.data.repository.object.history.pageInfo.hasNextPage;
         nextStartCursor = result.data.repository.object.history.pageInfo.endCursor;
         result.data.repository.object.history.nodes.map((list) => {
-          this.tempRepositoryContributor.push(list.author.name);
+          this.repositoryContributor.push(list.author.name);
         });
-        this.tempRepositoryContributor = this.tempRepositoryContributor.filter((item, pos) => {
-          return this.tempRepositoryContributor.indexOf(item) === pos;
+        this.repositoryContributor = this.repositoryContributor.filter((item, pos) => {
+          return this.repositoryContributor.indexOf(item) === pos;
         });
         if (hasNextPage) {
           this.fetchRepository(branchName, nextStartCursor);
         } else {
-          this.repositoryContributor = this.tempRepositoryContributor;
           document.getElementById('loader_div').style.display = 'none';
         }
       });
@@ -87,7 +70,6 @@ export class RepositoryDetailComponent implements OnInit {
         this.name = result.repository.name;
         this.owner = result.repository.owner;
         this.allbranch = [];
-        this.tempRepositoryContributor = [];
         this.repositoryContributor = [];
         this.fetchAllBranches();
       }
@@ -95,7 +77,6 @@ export class RepositoryDetailComponent implements OnInit {
     }
 
     onChange(newValue) {
-    this.tempRepositoryContributor = [];
     this.repositoryContributor = [];
     document.getElementById('loader_div').style.display = 'block';
     this.fetchRepository(newValue, '');

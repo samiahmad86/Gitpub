@@ -11,9 +11,9 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppBootstrapModule } from './components/bootstrap/app-bootstrap.module';
-import {GithubService} from './services/github.service';
 import { StoreModule } from '@ngrx/store';
 import { repositoryReducer } from './store/reducers/repository.reducers';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -37,10 +37,10 @@ import { repositoryReducer } from './store/reducers/repository.reducers';
 })
 export class AppModule {
    constructor(apollo: Apollo, httpLink: HttpLink) {
-      const http = httpLink.create({uri: 'https://api.github.com/graphql'});
+      const http = httpLink.create({uri: environment.url});
       const auth = setContext((_, { headers }) => {
         return {
-          headers: {Authorization: `Bearer fdeaaa619ca5d6ae00d680f7ba34f2e7a2e0d660`}
+          headers: {Authorization: environment.token}
         };
     });
       apollo.create({

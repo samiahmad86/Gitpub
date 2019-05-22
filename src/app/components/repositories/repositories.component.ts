@@ -20,7 +20,7 @@ export class RepositoriesComponent implements OnInit {
   private hasNextPage = true;
 
   constructor(private apollo: Apollo, private  githubService: GithubService, private store: Store<{ count: number }>) {
-
+    this.repositories = null;
   }
 
   ngOnInit() {
@@ -28,7 +28,11 @@ export class RepositoriesComponent implements OnInit {
      .subscribe((result) => {
       this.hasNextPage = result.data.search.pageInfo.hasNextPage;
       this.nextCursor = result.data.search.pageInfo.endCursor;
-      this.repositories = result.data.search.edges.map( (edge) => {
+      this.repositories = this._extractRepository(result.data.search.edges);
+      });
+  }
+  private _extractRepository(result) {
+   return result.map( (edge) => {
           return {
             name: edge.node.name,
             owner: edge.node.owner.login,
@@ -36,7 +40,6 @@ export class RepositoriesComponent implements OnInit {
             starCount: edge.node.stargazers.totalCount
           };
         } );
-      });
   }
 
   onSelect(repository: Repository): void {
@@ -50,14 +53,7 @@ export class RepositoriesComponent implements OnInit {
         .subscribe((result) => {
         this.hasNextPage = result.data.search.pageInfo.hasNextPage;
         this.nextCursor = result.data.search.pageInfo.endCursor;
-        this.repositories = this.repositories.concat(result.data.search.edges.map((edge) => {
-            return {
-              name: edge.node.name,
-              owner: edge.node.owner.login,
-              forkCount: edge.node.forkCount,
-              starCount: edge.node.stargazers.totalCount
-            };
-          }));
+        this.repositories = this.repositories.concat(this._extractRepository(result.data.search.edges));
         });
     }
   }

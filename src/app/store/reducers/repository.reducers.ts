@@ -6,7 +6,6 @@ export interface State {
   repository: Repository;
 }
 
-
 export const initialState: State = {
   repository: null,
 };
